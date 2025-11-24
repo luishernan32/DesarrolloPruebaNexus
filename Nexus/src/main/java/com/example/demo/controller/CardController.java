@@ -5,7 +5,6 @@ import com.example.demo.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.demo.POJO.CardNumberResponse;
 
 import java.math.BigDecimal;
 
@@ -18,12 +17,12 @@ public class CardController {
 
     // 1. Generar número de tarjeta
     @GetMapping("/{productId}/number")
-    public ResponseEntity<CardNumberResponse> generateCardNumber(
+    public ResponseEntity<TransactionResponse.CardNumberResponse> generateCardNumber(
             @PathVariable String productId) {
 
         try {
             String cardNumber = cardService.generateCardNumber(productId);
-            CardNumberResponse response = new CardNumberResponse(cardNumber, productId);
+            TransactionResponse.CardNumberResponse response = new TransactionResponse.CardNumberResponse(cardNumber, productId);
             return ResponseEntity.ok(response);
 
         } catch (IllegalArgumentException e) {
@@ -160,7 +159,7 @@ import com.example.demo.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.demo.POJO.CardNumberResponse;
+import com.example.demo.model.TransactionResponse.CardNumberResponse;
 
 @RestController
 @RequestMapping("/card")
@@ -252,7 +251,7 @@ public class CardController {
 /*package com.example.demo.controller;
 
 
-import com.example.demo.POJO.CardNumberResponse;
+import com.example.demo.model.TransactionResponse.CardNumberResponse;
 import com.example.demo.model.CardEnrollRequest;
 import com.example.demo.model.*;
 import com.example.demo.service.CardService;
